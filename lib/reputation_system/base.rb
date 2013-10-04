@@ -24,7 +24,7 @@ module ReputationSystem
       of = reputation[:of]
       attrs = reputation[:of] == :self ? self : self.instance_eval(of.to_s) if of.is_a?(String) || of.is_a?(Symbol)
       attrs = self.instance_exec(self, &of) if of.is_a?(Proc)
-      attrs = [attrs] unless attrs.is_a? Array
+      attrs = attrs.respond_to?(:to_a) ? attrs.to_a : [attrs] unless attrs.is_a? Array
       attrs.compact
     end
 
