@@ -172,6 +172,7 @@ describe ReputationSystem::FinderMethods do
         :joins => "JOIN users ON questions.author_id = users.id",
         :conditions => "COALESCE(rs_reputations.value, 0) > 0.6",
         :order => "total_votes"})
+      sql = sql.gsub(/(\s)\s*/, '\1')
       sql.should ==
         "SELECT questions.*, users.name AS user_name, COALESCE(rs_reputations.value, 0) AS total_votes "\
         "FROM \"questions\" JOIN users ON questions.author_id = users.id "\
