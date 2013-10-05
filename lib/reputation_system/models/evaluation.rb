@@ -31,13 +31,13 @@ module ReputationSystem
 
     def self.find_by_reputation_name_and_source_and_target(reputation_name, source, target)
       source_type = get_source_type_for_sti(source.class.name, target.class.name, reputation_name)
-      ReputationSystem::Evaluation.find(:first,
-                        :conditions => {:reputation_name => reputation_name.to_s,
-                                        :source_id => source.id,
-                                        :source_type => source_type,
-                                        :target_id => target.id,
-                                        :target_type => target.class.name
-                                        })
+      ReputationSystem::Evaluation.where(
+                        :reputation_name => reputation_name.to_s,
+                        :source_id => source.id,
+                        :source_type => source_type,
+                        :target_id => target.id,
+                        :target_type => target.class.name
+                                        ).first
     end
 
     def self.create_evaluation(reputation_name, value, source, target)

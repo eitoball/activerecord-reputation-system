@@ -173,13 +173,11 @@ module ReputationSystem
       end
 
       def self.max(reputation_name, target_type)
-        ReputationSystem::Reputation.maximum(:value,
-                             :conditions => {:reputation_name => reputation_name.to_s, :target_type => target_type, :active => true})
+        ReputationSystem::Reputation.where(:reputation_name => reputation_name.to_s, :target_type => target_type, :active => true).maximum(:value)
       end
 
       def self.min(reputation_name, target_type)
-        ReputationSystem::Reputation.minimum(:value,
-                             :conditions => {:reputation_name => reputation_name.to_s, :target_type => target_type, :active => true})
+        ReputationSystem::Reputation.where(:reputation_name => reputation_name.to_s, :target_type => target_type, :active => true).minimum(:value)
       end
 
       def self.get_target_type_for_sti(target, reputation_name)
